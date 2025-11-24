@@ -12,7 +12,10 @@ const app = express();
 const port = config.port;
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin: ['http://localhost:5173', 'http://localhost:5174', 'https://quiz-app-three-ebon.vercel.app'],
+  credentials: true
+}));
 
 
 app.get('/', (req, res) => {
