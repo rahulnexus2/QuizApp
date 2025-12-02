@@ -8,7 +8,7 @@ import toast from 'react-hot-toast';
 import { UserPlus, User, Shield } from 'lucide-react';
 
 const Signup = () => {
-    const [formData, setFormData] = useState({ username: '', email: '', password: '', role: 'user', adminkey: '' });
+    const [formData, setFormData] = useState({ username: '', email: '', password: '', role: 'user' });
     const { signup } = useAuth();
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
@@ -16,7 +16,7 @@ const Signup = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
-        const result = await signup(formData.username, formData.email, formData.password, formData.role, formData.adminkey);
+        const result = await signup(formData.username, formData.email, formData.password, formData.role);
         setLoading(false);
 
         if (result.success) {
@@ -45,8 +45,8 @@ const Signup = () => {
                             type="button"
                             onClick={() => setFormData({ ...formData, role: 'user' })}
                             className={`flex-1 py-3 px-4 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2 ${formData.role === 'user'
-                                    ? 'bg-gradient-to-r from-primary to-primary-dark text-white shadow-lg shadow-primary/30'
-                                    : 'text-text-muted hover:text-text'
+                                ? 'bg-gradient-to-r from-primary to-primary-dark text-white shadow-lg shadow-primary/30'
+                                : 'text-text-muted hover:text-text'
                                 }`}
                         >
                             <User size={18} />
@@ -56,8 +56,8 @@ const Signup = () => {
                             type="button"
                             onClick={() => setFormData({ ...formData, role: 'admin' })}
                             className={`flex-1 py-3 px-4 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center gap-2 ${formData.role === 'admin'
-                                    ? 'bg-gradient-to-r from-secondary to-secondary-dark text-white shadow-lg shadow-secondary/30'
-                                    : 'text-text-muted hover:text-text'
+                                ? 'bg-gradient-to-r from-secondary to-secondary-dark text-white shadow-lg shadow-secondary/30'
+                                : 'text-text-muted hover:text-text'
                                 }`}
                         >
                             <Shield size={18} />
@@ -88,15 +88,6 @@ const Signup = () => {
                         onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                         required
                     />
-
-                    {formData.role === 'admin' && (
-                        <Input
-                            type="password"
-                            placeholder="Admin Key"
-                            value={formData.adminkey}
-                            onChange={(e) => setFormData({ ...formData, adminkey: e.target.value })}
-                        />
-                    )}
 
                     <Button
                         type="submit"

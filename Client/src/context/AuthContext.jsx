@@ -48,7 +48,7 @@ export const AuthProvider = ({ children }) => {
         }
     };
 
-    const signup = async (username, email, password, role, adminkey) => {
+    const signup = async (username, email, password, role) => {
         try {
             await authAPI.signup(username, email, password, role);
             return { success: true };
