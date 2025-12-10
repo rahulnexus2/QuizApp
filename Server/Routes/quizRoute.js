@@ -10,7 +10,8 @@ import {
 
 import {
     submitQuizResult,
-    getQuizLeaderboard
+    getQuizLeaderboard,
+    getUserQuizHistory
 } from '../Controller/QuizResultController.js';
 
 import { adminAuth } from '../Auth/adminAuth.js';
@@ -24,6 +25,7 @@ router.get("/:id", getSingleQuiz);
 router.get("/:id/leaderboard", getQuizLeaderboard);
 
 // USER ROUTES
+router.get("/user/history", userAuth, getUserQuizHistory);
 router.post("/:id/submit", userAuth, submitQuizResult);
 
 // ADMIN ROUTES ONLY

@@ -138,6 +138,15 @@ export const quizAPI = {
     getLeaderboard: async (id, limit = 10) => {
         const response = await api.get(`/quiz/${id}/leaderboard?limit=${limit}`);
         return response.data;
+    },
+
+    /**
+     * Get user's quiz history (authenticated users)
+     * @returns {Promise} User's quiz history with statistics
+     */
+    getUserHistory: async () => {
+        const response = await api.get('/quiz/user/history');
+        return response.data;
     }
 };
 

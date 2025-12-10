@@ -6,17 +6,17 @@ export const adminSignupController = async (req, res) => {
   try {
     const { username, email, password } = req.body;
 
-    // 1️⃣ Check if admin already exists
+    
     const existingAdmin = await Admin.findOne({ email });
     if (existingAdmin) {
       return res.status(400).json({ message: "Admin already exists" });
     }
 
-    // 2️⃣ Hash password
+    
     const salt = await bcrypt.genSalt(10);
     const hashpass = await bcrypt.hash(password, salt);
 
-    // 3️⃣ Create admin
+    
     const newAdmin = new Admin({
       username: username,
       email: email,
@@ -26,7 +26,7 @@ export const adminSignupController = async (req, res) => {
 
     await newAdmin.save();
 
-    // 4️⃣ Response
+    
     res.status(201).json({
       message: "Successfully signed up as admin",
       id: newAdmin._id,

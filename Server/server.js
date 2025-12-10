@@ -42,7 +42,6 @@ const startServer = async () => {
   try {
     await conectDb();
     console.log("✅ Connected to MongoDb Server")
-
     app.listen(port, () => {
       console.log(`app is listening at port ${config.port}`);
     })

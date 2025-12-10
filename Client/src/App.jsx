@@ -12,6 +12,7 @@ import UserDashboard from './pages/UserDashboard';
 import TakeQuiz from './pages/TakeQuiz';
 import Result from './pages/Result';
 import Leaderboard from './pages/Leaderboard';
+import QuizHistory from './pages/QuizHistory';
 
 const ProtectedRoute = ({ children, role }) => {
   const { user, loading } = useAuth();
@@ -70,6 +71,11 @@ function App() {
               <Route path="/result" element={
                 <ProtectedRoute role="user">
                   <Result />
+                </ProtectedRoute>
+              } />
+              <Route path="/history" element={
+                <ProtectedRoute role="user">
+                  <QuizHistory />
                 </ProtectedRoute>
               } />
 

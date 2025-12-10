@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { quizAPI } from '../utils/apiService';
 import Card from '../components/Card';
 import Button from '../components/Button';
-import { Play, BookOpen, Clock, Trophy } from 'lucide-react';
+import { Play, BookOpen, Clock, Trophy, History } from 'lucide-react';
 import toast from 'react-hot-toast';
 
 const UserDashboard = () => {
@@ -34,9 +34,15 @@ const UserDashboard = () => {
                     <span className="text-gradient-primary">Available</span>
                     <span className="text-text"> Quizzes</span>
                 </h1>
-                <p className="text-text-muted text-lg max-w-2xl mx-auto">
+                <p className="text-text-muted text-lg max-w-2xl mx-auto mb-6">
                     Challenge yourself and test your knowledge across various topics
                 </p>
+                <Link to="/history">
+                    <Button variant="outline" className="px-6 py-3">
+                        <History size={20} />
+                        My History
+                    </Button>
+                </Link>
             </div>
 
             {loading ? (

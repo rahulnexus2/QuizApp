@@ -83,3 +83,50 @@ export const getQuizLeaderboard = async (req, res) => {
         });
     }
 };
+
+/**
+ * Get user's quiz history
+ * GET /api/quiz/user/history
+ */
+export const getUserQuizHistory = async (req, res) => {
+    try {
+        const userId = req.user._id;
+
+        // Fetch all quiz results for the user
+        const history = await QuizResult.find({ userId })
+            .populate("quizId", "title")
+            .sort({ completedAt: -1 }) // Most recent first
+            .lean();
+
+        // Calculate statistics
+        const totalAttempts = history.length;
+        const averageScore = totalAttempts > 0
+            ? Math.round(history.reduce((acc, result) => acc + result.percentage, 0) / totalAttempts)
+            : 0;
+        const bestScore = totalAttempts > 0
+            ? Math.max(...history.map(result => result.percentage))
+            : 0;
+
+        res.json({
+            statistics: {
+                totalAttempts,
+                averageScore,
+                bestScore,
+            },
+            history: history.map(result => ({
+                _id: result._id,
+                quizId: result.quizId?._id,
+                quizTitle: result.quizId?.title || "Unknown Quiz",
+                score: result.score,
+                totalQuestions: result.totalQuestions,
+                percentage: result.percentage,
+                completedAt: result.completedAt,
+            })),
+        });
+    } catch (error) {
+        res.status(500).json({
+            message: "Server error",
+            error: error.message,
+        });
+    }
+};
